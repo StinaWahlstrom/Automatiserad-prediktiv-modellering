@@ -1,25 +1,31 @@
-function [da,db,dc1,dc2] = G_sum(x1,y,a,b,c1,c2)
+function [da,db,dc] = G_sum(x,y,a,b,c)
 
-S = size(y);
-N = S(1);
+S = size(x);
+N = S(2);
+S1= size(b);
+N2 = S1(1);
 suma = 0;
-sumb = 0;
-sumc = 0;
-c = [c1;c2];
+sumb = zeros(N2,1);
+sumc = zeros(N2,1);
+
 
 for i=1:N
-    x = [x1(1,i);x1(2,i)];
-    
-    suma = suma + (y(i)- a*exp(-b*norm(x-c)^2))*a*exp(-b*norm(x-c)^2)/a;
-    sumb = sumb + (y(i)- a*exp(-b*norm(x-c)^2))*-a*exp(-b*norm(x-c)^2)*(norm(x-c)^2);
-    sumc = sumc + (y(i)- a*exp(-b*norm(x-c)^2))*a*exp(-b*norm(x-c)^2)*2*b*(x-c);
-    
+    exp_sum = 0; 
+   
+   for j = 1:N2
+   exp_sum = exp_sum + b(j)*((x(j,i)-c(j))^2);
+   end
+   
+   y_hat = a*exp(-exp_sum);
+   
+   suma = suma + (y(i)- y_hat)*y_hat/a;
+   for k= 1:N2
+   sumb(k) = sumb(k) + (y(i)- y_hat)* -1*((x(k,i)-c(k))^2)*y_hat;
+   sumc(k) = sumc(k) + (y(i)- y_hat)*2*(x(k,i)-c(k))*b(k)*y_hat;
+   end 
+   
 end
 
 da = -2*suma/N;
 db = -2*sumb/N;
 dc = -2*sumc/N;
-dc1 = dc(1);
-dc2 = dc(2);
-
-    
