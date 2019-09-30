@@ -2,14 +2,16 @@ clear all
 close all
 clc
 
-% Dimensions
+% Dimensions (change between 2 or 10)
 d = 10;
+%d = 2;
 
-% Start guess
+% Start guess (change between two or 10 dimesions)
 a = 0.25;
 b = [1;1;1;1;1;1;1;1;1;1];
 c = [4;4;4;4;4;4;4;4;4;4];
-
+% b = [1,1];
+% c = [4,4];
 
 rmse = zeros(1,200);
 
@@ -20,20 +22,13 @@ c_values = [];
 q = zeros(1, 100);
 
 % Generate a big test set
-[Big_x_values, Big_y_values] = data_generator(10000);
+[Big_x_values, Big_y_values] = data_generator(10000,d);
 
-% Big_x_values = 6*rand(d,10000);
-% Big_y_values = zeros(10000,1);
-% 
-% for i = 1:10000
-%     Big_y_values(i) = response_function_noise(Big_x_values(1,i),Big_x_values(2,i));
-% end 
-% 
 
 %Generate  100 different models using 100 different test sets
 for i = 1:100
     %generate training set
-    [x_values , y_values] = data_generator(400);
+    [x_values , y_values] = data_generator(400,d);
     
     % estimate model
     [a , b, c] = variable_estimator(a, b, c, x_values,y_values);
@@ -51,12 +46,15 @@ for i = 1:100
     
 end
 
-
+% Plot rmse for training datasets
 histogram(rmse);
 title('RMSE train')
+
+% plot histograms of the distibution of the different variables
 figure()
 histogram(a_values)
 title('A')
+figure()
 for i = 1:10
  
         subplot(5,2,i);
@@ -65,6 +63,7 @@ for i = 1:10
 end     
 suptitle('b-values')
 
+figure()
 for i = 1:10
  
         subplot(5,2,i);
@@ -73,6 +72,7 @@ for i = 1:10
 end     
 suptitle('c-values')
 
+% plot the rmse for the big dataset
 figure()
 histogram(q)
 title('RMSE Test')

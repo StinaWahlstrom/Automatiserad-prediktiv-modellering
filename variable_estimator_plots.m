@@ -3,14 +3,15 @@ clc
 close all
 clear all
 
+% number of examples
 N = 400;
 
-x_values = 6*rand(10,N);
-y_values = zeros(N,1);
+% dimension ( choose 10 or 2)
+%d = 10;
+d = 2;
 
-for i = 1:N
-    y_values(i) = response_function(x_values(1,i),x_values(2,i));
-end 
+% generate data
+[x_values, y_values] = data_generator(400,d);
 
 %set starting values
 t = 0;
@@ -21,10 +22,10 @@ Beta = 0.05;
 a = 0.25;
 
 % starting guess b and c, choose either 2 or 10 dimensions
-%b = [1;1];
-%c = [4;4];
-b = [1;1;1;1;1;1;1;1;1;1];
-c = [4;4;4;4;4;4;4;4;4;4];
+b = [1;1];
+c = [4;4];
+%b = [1;1;1;1;1;1;1;1;1;1];
+%c = [4;4;4;4;4;4;4;4;4;4];
 
 
 %calculate starting function value and gradient
@@ -51,7 +52,7 @@ alfa0 = 10^(-4);
 alfat=alfa0;
 
 
-while ((Nf < 100000) && J > 10^(-7))
+while ((Nf < 5000) && J > 10^(-5))
     
     % take a step
     a_next = a - alfat*da;

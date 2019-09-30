@@ -31,7 +31,7 @@ alfa0 = 10^(-4);
 alfat=alfa0;
 
 
-while ((Nf < 100000) && J > 10^(-7))
+while ((Nf < 40000) && J > 10^(-5))
     
     a_next = a - alfat*da;
     b_next = b - alfat*db;

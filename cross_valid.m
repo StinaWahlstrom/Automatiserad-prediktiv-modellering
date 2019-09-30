@@ -1,4 +1,7 @@
 % Task 
+%dimensions (choose between 2 or 10)
+d = 10;
+% d= 2;
 
 % set a parameter
 a = 0.25;
@@ -10,7 +13,7 @@ b = [1;1;1;1;1;1;1;1;1;1];
 c = [4;4;4;4;4;4;4;4;4;4];
 
 % genereate one set of test and train examples examples.
-[x_values, y_values] = data_generator(400);
+[x_values, y_values] = data_generator(400,d);
 
 % create empty vector to fill.
 rmse= [];

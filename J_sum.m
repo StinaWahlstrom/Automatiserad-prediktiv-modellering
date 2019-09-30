@@ -1,4 +1,6 @@
 function J = J_sum(x,y,a,b,c)
+
+% Set parameters
 S = size(x);
 N = S(2);
 S1 = size(b);
@@ -7,11 +9,13 @@ sum = 0;
 
 for i=1:N
     exp_sum = 0; 
+    
     for j = 1:N2
-   exp_sum = exp_sum + -b(j)*(x(j,i)-c(j))^2;
+        exp_sum = exp_sum + -b(j)*(x(j,i)-c(j))^2;
     end
-   y_hat = a*exp(exp_sum);
-   sum = sum + (y(i) - y_hat)^2;
+    
+    y_hat = a*exp(exp_sum);
+    sum = sum + (y(i) - y_hat)^2;
 end
 
 J = sum/N;

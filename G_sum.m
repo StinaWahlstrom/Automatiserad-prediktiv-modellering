@@ -1,5 +1,6 @@
 function [da,db,dc] = G_sum(x,y,a,b,c)
 
+% Set parameters
 S = size(x);
 N = S(2);
 S1= size(b);
